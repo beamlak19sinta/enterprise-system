@@ -1,0 +1,40 @@
+const express = require('express');
+const router = express.Router();
+
+const authRoutes = require('./auth');
+const userRoutes = require('./users');
+const dashboardRoutes = require('./dashboard');
+const employeeRoutes = require('./employees');
+const departmentRoutes = require('./departments');
+const attendanceRoutes = require('./attendance');
+const leaveRoutes = require('./leaves');
+const payrollRoutes = require('./payroll');
+const customerRoutes = require('./customers');
+const supplierRoutes = require('./suppliers');
+const inventoryRoutes = require('./inventory');
+const salesRoutes = require('./sales');
+const purchaseRoutes = require('./purchases');
+const financeRoutes = require('./finance');
+const reportRoutes = require('./reports');
+const searchRoutes = require('./search');
+const performanceRoutes = require('./performance');
+
+router.use('/auth', authRoutes);
+router.use('/users', userRoutes);
+router.use('/dashboard', dashboardRoutes);
+router.use('/employees', employeeRoutes);
+router.use('/departments', departmentRoutes);
+router.use('/attendance', attendanceRoutes);
+router.use('/leaves', leaveRoutes);
+router.use('/payroll', payrollRoutes);
+router.use('/customers', customerRoutes);
+router.use('/suppliers', supplierRoutes);
+router.use('/inventory', inventoryRoutes);
+router.use('/sales', salesRoutes);
+router.use('/purchases', purchaseRoutes);
+router.use('/finance', financeRoutes);
+router.use('/reports', reportRoutes);
+router.use('/search', searchRoutes);
+router.use('/performance', performanceRoutes);
+
+module.exports = router;
