@@ -1,0 +1,49 @@
+services:
+  # ── Backend API ──────────────────────────────────────────────
+  - type: web
+    name: erp-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        value: mongodb://beamlaksintayheu6_db_user:muna1921@ac-eo5qkml-shard-00-00.0k7dpxu.mongodb.net:27017,ac-eo5qkml-shard-00-01.0k7dpxu.mongodb.net:27017,ac-eo5qkml-shard-00-02.0k7dpxu.mongodb.net:27017/erp_system?ssl=true&replicaSet=atlas-d8pi8z-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0&compressors=zlib
+      - key: JWT_SECRET
+        value: erp_system_super_secret_jwt_key_2024_production_32chars_min
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: JWT_REFRESH_SECRET
+        value: erp_system_refresh_secret_key_2024_production_32chars_min
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 30d
+      - key: FRONTEND_URL
+        fromService:
+          name: erp-frontend
+          type: web
+          property: host
+      - key: BCRYPT_ROUNDS
+        value: 12
+
+  # ── Frontend ─────────────────────────────────────────────────
+  - type: web
+    name: erp-frontend
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    startCommand: node .next/standalone/server.js
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          name: erp-backend
+          type: web
+          property: host
+      - key: NEXT_PUBLIC_SOCKET_URL
+        fromService:
+          name: erp-backend
+          type: web
+          property: host
